@@ -15,12 +15,18 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
+    var container = document.getElementById('listContainer');
+    
         $(document).ready(function() {
+        container = document.getElementById('listContainer');
+         loadlists();
+        loadcards();
+        
             console.log('Terst ');
         });
         /* GLOBAL VARIABLES */
 
-        var container = document.getElementById('listContainer');
+        
 
         var lists = [];
 
@@ -131,8 +137,11 @@
             savelists();
         }
 
-        function createListDisplay(title) {
 
+
+
+        function createListDisplay(title) {
+        //container = document.getElementById('listContainer');
 
             var d = document.createElement('div');
 
@@ -144,6 +153,9 @@
                 t: title,
                 id: id
             });
+            
+            
+            
             var p = lists[lists.length - 1];
 
             d.className = "span3 well list";
@@ -153,11 +165,17 @@
             a.className = "close";
             a.innerHTML = "x";
             a.onclick = function() {
-
                 deleteList(this.id)
             }
-
+            
+            
+            console.log(a);
+            
             d.appendChild(a);
+            
+            console.log('Finsish --d.appendChild(a);--');
+            
+            
             p.a = a;
 
             var h = document.createElement('h2');
@@ -174,15 +192,35 @@
             c.setAttribute('id', 'cards-' + id);
             c.setAttribute('ondrop', 'drop(event)');
             c.setAttribute('ondragover', 'allowDrop(event)');
+            
+            console.log(c);
+            
             t.appendChild(c);
-
+            console.log('Finsish --t.appendChild(c);--');
 
             var cont = document.createElement('div');
-            cont.innerHTML = '<form onsubmit="return addCard(' + id + ')"><textarea class="span3" rows="3" cols="200" name="' + id + '_card_content" id="' + id + '_card_content" placeholder="Your task description" ></textarea><input type="hidden" id="card_no" name="card_no" value="' + id + '"><button type="submit" class="btn btn-info">Add Task</button></form>';
+            
+            cont.innerHTML = '<form onsubmit="return addCard(' + id + ')"><textarea class="span3" rows="3" cols="200" name="' + id + '_card_content" id="' + id
+            + '_card_content" placeholder="Your task description" ></textarea><input type="hidden" id="card_no" name="card_no" value="' + id +
+            '"><button type="submit" class="btn btn-info">Add Task</button></form>';
+            
+            
+            console.log(cont);
+            console.log(t);
+            
+            
+            
             t.appendChild(cont);
             d.appendChild(t);
+            
+            console.log('Finsish --202 d.appendChild(t); --');
+            console.log(container);
+            
             //p.cont = cont;
             container.appendChild(d);
+            
+             console.log('Finsish --216 container.appendChild(d); --');
+             
         }
 
         /* CARD FUNCTIONS */
@@ -257,8 +295,7 @@
             savecards();
         }
 
-        loadlists();
-        loadcards();
+       
 
         /* Drag and Drop */
 
@@ -409,13 +446,13 @@
                     onclick="toggleDivs('new_list','new_list_button')">+
                     </button>
 
-                    <form style="display:none" onsubmit="return addList()" id="new_list">
+                    <div style="display:none"  id="new_list">
                         <a class="close" style="line-height:40px" href="#" onclick="toggleDivs('new_list_button','new_list')">x</a>
                         <h2 class="list_head">Create New List</h2>
                         <input type="text" name="title" id="title" placeholder="List name" />
                         <br />
-                        <button type="submit" class="btn btn-info">Add List</button>
-                    </form>
+                        <button onclick="addList()" class="btn btn-info">Add List</button>
+                    </div>
 
                 </div>
             </div>
